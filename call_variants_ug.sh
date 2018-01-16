@@ -3,6 +3,9 @@
 #SBATCH --mem 10000
 #SBATCH -A Mayo_Workshop
 #SBATCH -J UnifiedGenotyper
+#SBATCH -o UnifiedGenotyper.%j.out
+#SBATCH -e UnifiedGenotyper.%j.err
+#SBATCH -p classroom
 
 # load the tools (GATK)
 module load GATK/3.7-Java-1.8.0_121
@@ -35,7 +38,6 @@ java -jar -Xmx8g $EBROOTGATK/GenomeAnalysisTK.jar -T UnifiedGenotyper \
     -nt $SLURM_CPUS_PER_TASK \
     -A Coverage \
     -A HaplotypeScore \
-    -A InbreedingCoeff \
     -o $SNP_VCF_FILE
 
 # Indels
@@ -50,5 +52,4 @@ java -jar -Xmx8g $EBROOTGATK/GenomeAnalysisTK.jar -T UnifiedGenotyper \
     -nt $SLURM_CPUS_PER_TASK \
     -A Coverage \
     -A HaplotypeScore \
-    -A InbreedingCoeff \
     -o $INDEL_VCF_FILE

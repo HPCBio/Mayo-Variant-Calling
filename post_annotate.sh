@@ -2,6 +2,10 @@
 #SBATCH -c 4
 #SBATCH --mem 8000
 #SBATCH -A Mayo_Workshop
+#SBATCH -J VariantAnnotator
+#SBATCH -o VariantAnnotator.%j.out
+#SBATCH -e VariantAnnotator.%j.err
+#SBATCH -p classroom
 
 # load the tools (GATK)
 module load GATK/3.7-Java-1.8.0_121

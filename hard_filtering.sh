@@ -3,6 +3,9 @@
 #SBATCH --mem 8000
 #SBATCH -A Mayo_Workshop
 #SBATCH -J GATK-Filtering
+#SBATCH -o GATK-Filtering.%j.out
+#SBATCH -e GATK-Filtering.%j.err
+#SBATCH -p classroom
 
 # load the tool environment
 module load GATK/3.7-Java-1.8.0_121

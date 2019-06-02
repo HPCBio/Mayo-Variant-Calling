@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -c 4
+#SBATCH -n 4
 #SBATCH --mem 10000
 #SBATCH -A Mayo_Workshop
 #SBATCH -J UnifiedGenotyper
@@ -8,11 +8,11 @@
 #SBATCH -p classroom
 
 # load the tools (GATK)
-module load GATK/3.7-Java-1.8.0_121
+module load GATK/3.8-1-0-Java-1.8.0_152
 
 # reference genome
 export BUNDLE_HOME=/home/mirror/gatkbundle
-export REFERENCE=$BUNDLE_HOME/2.5/b37/human_g1k_v37.fasta
+export REFERENCE=$BUNDLE_HOME/mayo_workshop/2019/human_g1k_v37.fasta
 
 # this is our input (BAM)
 export BAM_FILE=$BUNDLE_HOME/mayo_workshop/NA12878.HiSeq.WGS.bwa.cleaned.recal.b37.20_arm1.bam
@@ -22,12 +22,12 @@ export SNP_VCF_FILE=raw_snps.vcf
 export INDEL_VCF_FILE=raw_indels.vcf
 
 # this is our dbsnp source
-export DBSNP=$BUNDLE_HOME/mayo_workshop/resources/dbsnp_137.b37.vcf
+export DBSNP=$BUNDLE_HOME/mayo_workshop/2019/dbsnp_138.b37.vcf
 
 # the actual GATK calls
 
 # SNPs
-java -jar -Xmx8g $EBROOTGATK/GenomeAnalysisTK.jar -T UnifiedGenotyper \
+gatk -T UnifiedGenotyper \
     -I $BAM_FILE \
     -R $REFERENCE \
     -glm SNP \
@@ -35,13 +35,13 @@ java -jar -Xmx8g $EBROOTGATK/GenomeAnalysisTK.jar -T UnifiedGenotyper \
     -out_mode EMIT_VARIANTS_ONLY \
     -L 20:15000000-30000000 \
     -stand_call_conf 30  \
-    -nt $SLURM_CPUS_PER_TASK \
+    -nt $SLURM_NPROCS \
     -A Coverage \
     -A HaplotypeScore \
     -o $SNP_VCF_FILE
 
 # Indels
-java -jar -Xmx8g $EBROOTGATK/GenomeAnalysisTK.jar -T UnifiedGenotyper \
+gatk -T UnifiedGenotyper \
     -I $BAM_FILE \
     -R $REFERENCE \
     -glm INDEL \
@@ -49,7 +49,7 @@ java -jar -Xmx8g $EBROOTGATK/GenomeAnalysisTK.jar -T UnifiedGenotyper \
     -out_mode EMIT_VARIANTS_ONLY \
     -L 20:15000000-30000000 \
     -stand_call_conf 30  \
-    -nt $SLURM_CPUS_PER_TASK \
+    -nt $SLURM_NPROCS \
     -A Coverage \
     -A HaplotypeScore \
     -o $INDEL_VCF_FILE

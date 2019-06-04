@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -c 4
+#SBATCH -n 4
 #SBATCH --mem 8000
 #SBATCH -A Mayo_Workshop
 #SBATCH -J VariantAnnotator
@@ -7,12 +7,12 @@
 #SBATCH -e VariantAnnotator.%j.err
 #SBATCH -p classroom
 
-# load the tools (GATK)
-module load GATK/3.7-Java-1.8.0_121
+# load the tool environment
+module load GATK/3.8-1-0-Java-1.8.0_152
 
 # reference genome
 export BUNDLE_HOME=/home/mirror/gatkbundle
-export REFERENCE=$BUNDLE_HOME/2.5/b37/human_g1k_v37.fasta
+export REFERENCE=$BUNDLE_HOME/mayo_workshop/2019/human_g1k_v37.fasta
 
 # this is our input (raw VCF)
 export SNP_VCF_FILE_ORIG=hard_filtered_snps.vcf
@@ -28,21 +28,21 @@ export INDEL_VCF_FILE_OUT=hard_filtered_indels_final.vcf
 # the actual GATK calls
 
 # SNPs
-java -jar $EBROOTGATK/GenomeAnalysisTK.jar -T VariantAnnotator \
+gatk -T VariantAnnotator \
     -R $REFERENCE \
     -A SnpEff \
     --variant $SNP_VCF_FILE_ORIG \
     --snpEffFile $SNP_VCF_FILE_SNPEFF \
     -L 20:15000000-30000000 \
-    -nt $SLURM_CPUS_PER_TASK \
+    -nt $SLURM_NPROCS \
     -o $SNP_VCF_FILE_OUT
 
 # Indels
-java -jar $EBROOTGATK/GenomeAnalysisTK.jar -T VariantAnnotator \
+gatk -T VariantAnnotator \
     -R $REFERENCE \
     -A SnpEff \
     --variant $INDEL_VCF_FILE_ORIG \
     --snpEffFile $INDEL_VCF_FILE_SNPEFF \
     -L 20:15000000-30000000 \
-    -nt $SLURM_CPUS_PER_TASK \
+    -nt $SLURM_NPROCS \
     -o $INDEL_VCF_FILE_OUT

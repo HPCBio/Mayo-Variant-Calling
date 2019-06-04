@@ -22,12 +22,12 @@ export SNP_VCF_FILE=raw_snps.vcf
 export INDEL_VCF_FILE=raw_indels.vcf
 
 # this is our dbsnp source
-export DBSNP=$BUNDLE_HOME/mayo_workshop/2019/dbsnp_138.b37.vcf
+export DBSNP=$BUNDLE_HOME/mayo_workshop/2019/dbsnp_138.b37.vcf.gz
 
 # the actual GATK calls
 
 # SNPs
-gatk -T UnifiedGenotyper \
+gatk --java-options "-Xmx8g" -T UnifiedGenotyper \
     -I $BAM_FILE \
     -R $REFERENCE \
     -glm SNP \
@@ -35,13 +35,13 @@ gatk -T UnifiedGenotyper \
     -out_mode EMIT_VARIANTS_ONLY \
     -L 20:15000000-30000000 \
     -stand_call_conf 30  \
-    -nt $SLURM_NPROCS \
+    --num_threads $SLURM_NPROCS \
     -A Coverage \
     -A HaplotypeScore \
     -o $SNP_VCF_FILE
 
 # Indels
-gatk -T UnifiedGenotyper \
+gatk --java-options "-Xmx8g" -T UnifiedGenotyper \
     -I $BAM_FILE \
     -R $REFERENCE \
     -glm INDEL \
@@ -49,7 +49,7 @@ gatk -T UnifiedGenotyper \
     -out_mode EMIT_VARIANTS_ONLY \
     -L 20:15000000-30000000 \
     -stand_call_conf 30  \
-    -nt $SLURM_NPROCS \
+    --num_threads $SLURM_NPROCS \
     -A Coverage \
     -A HaplotypeScore \
     -o $INDEL_VCF_FILE

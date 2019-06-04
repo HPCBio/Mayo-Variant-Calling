@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -c 1
+#SBATCH -n 1
 #SBATCH --mem 8000
 #SBATCH -A Mayo_Workshop
 #SBATCH -J GATK-Filtering
@@ -8,12 +8,12 @@
 #SBATCH -p classroom
 
 # load the tool environment
-module load GATK/3.7-Java-1.8.0_121
+module load GATK/3.8-1-0-Java-1.8.0_152
 
 # set some shortcuts...
 # reference genome
 export BUNDLE_HOME=/home/mirror/gatkbundle
-export REFERENCE=$BUNDLE_HOME/2.5/b37/human_g1k_v37.fasta
+export REFERENCE=$BUNDLE_HOME/mayo_workshop/2019/human_g1k_v37.fasta
 
 # inputs (raw VCF)
 export SNP_VCF_FILE=raw_snps.vcf
@@ -26,7 +26,7 @@ export INDEL_VCF_FILE_OUT=hard_filtered_indels.vcf
 # the actual GATK calls
 
 # SNPs
-java -jar $EBROOTGATK/GenomeAnalysisTK.jar -T VariantFiltration \
+gatk -T VariantFiltration \
     -R $REFERENCE \
     --variant $SNP_VCF_FILE \
     --clusterSize 3 \
@@ -46,7 +46,7 @@ java -jar $EBROOTGATK/GenomeAnalysisTK.jar -T VariantFiltration \
     -o $SNP_VCF_FILE_OUT
 
 # Indels
-java -jar $EBROOTGATK/GenomeAnalysisTK.jar -T VariantFiltration \
+gatk -T VariantFiltration \
     -R $REFERENCE \
     --variant $INDEL_VCF_FILE \
     --filterExpression "QD < 2.0" \

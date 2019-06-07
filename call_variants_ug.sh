@@ -27,7 +27,7 @@ export DBSNP=$BUNDLE_HOME/mayo_workshop/2019/dbsnp_138.b37.vcf.gz
 # the actual GATK calls
 
 # SNPs
-gatk --java-options "-Xmx8g" -T UnifiedGenotyper \
+gatk -T UnifiedGenotyper \
     -I $BAM_FILE \
     -R $REFERENCE \
     -glm SNP \
@@ -41,7 +41,7 @@ gatk --java-options "-Xmx8g" -T UnifiedGenotyper \
     -o $SNP_VCF_FILE
 
 # Indels
-gatk --java-options "-Xmx8g" -T UnifiedGenotyper \
+gatk -T UnifiedGenotyper \
     -I $BAM_FILE \
     -R $REFERENCE \
     -glm INDEL \

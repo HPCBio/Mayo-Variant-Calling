@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -n 1
-#SBATCH --mem 8000
+#SBATCH --mem 16g
 #SBATCH -A Mayo_Workshop
 #SBATCH -J GATK-Filtering
 #SBATCH -o GATK-Filtering.%j.out

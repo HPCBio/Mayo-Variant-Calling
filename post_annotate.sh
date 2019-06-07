@@ -1,6 +1,6 @@
 #!/bin/bash
-#SBATCH -n 4
-#SBATCH --mem 8000
+#SBATCH -n 2
+#SBATCH --mem 32g
 #SBATCH -A Mayo_Workshop
 #SBATCH -J VariantAnnotator
 #SBATCH -o VariantAnnotator.%j.out

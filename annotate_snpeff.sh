@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -n 2
-#SBATCH --mem 8000
+#SBATCH --mem 16g
 #SBATCH -A Mayo_Workshop
 #SBATCH -J SnpEff
 #SBATCH -o SnpEff.%j.out

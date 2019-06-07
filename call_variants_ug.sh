@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -n 4
-#SBATCH --mem 10000
+#SBATCH --mem 32g
 #SBATCH -A Mayo_Workshop
 #SBATCH -J UnifiedGenotyper
 #SBATCH -o UnifiedGenotyper.%j.out

@@ -20,7 +20,7 @@ $ cd $HOME
 $ mkdir test
 $ cd test
 $ git clone https://github.com/HPCBio/Mayo-Variant-Calling.git
-$ Mayo-Variant-Calling
+$ cd Mayo-Variant-Calling
 ```
 
 2. Run each script sequentially. 

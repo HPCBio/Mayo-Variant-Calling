@@ -11,7 +11,7 @@
 module load GATK/3.8-1-0-Java-1.8.0_152
 
 # reference genome
-export BUNDLE_HOME=/home/mirror/gatkbundle
+export BUNDLE_HOME=/home/classroom/hpcbio
 export REFERENCE=$BUNDLE_HOME/mayo_workshop/2019/human_g1k_v37.fasta
 
 # this is our input (BAM)
@@ -38,6 +38,7 @@ gatk -T UnifiedGenotyper \
     --num_threads $SLURM_NPROCS \
     -A Coverage \
     -A HaplotypeScore \
+    --disable_auto_index_creation_and_locking_when_reading_rods \
     -o $SNP_VCF_FILE
 
 # Indels
@@ -52,4 +53,5 @@ gatk -T UnifiedGenotyper \
     --num_threads $SLURM_NPROCS \
     -A Coverage \
     -A HaplotypeScore \
+    --disable_auto_index_creation_and_locking_when_reading_rods \
     -o $INDEL_VCF_FILE

@@ -4,13 +4,13 @@ Basic scripts for the Mayo-Illinois course.  Hard-coded for biocluster.  Steps:
 
 1. Copy to a test directory, or run a `git clone`:
 
-Copying (note the hard path):
+Copying from the Biocluster (note the hard path):
 
 ```
 $ cd $HOME
 $ mkdir test
 $ cd test
-$ cp /home/mirrors/gatkbundle/mayo_workshop/2019/Mayo-Variant-Calling/*.sh . 
+$ cp /home/classroom/hpcbio/mayo_workshop/2019/Mayo-Variant-Calling/*.sh . 
 ```
 
 Using the latest:

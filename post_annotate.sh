@@ -11,7 +11,7 @@
 module load GATK/3.8-1-0-Java-1.8.0_152
 
 # reference genome
-export BUNDLE_HOME=/home/mirror/gatkbundle
+export BUNDLE_HOME=/home/classroom/hpcbio
 export REFERENCE=$BUNDLE_HOME/mayo_workshop/2019/human_g1k_v37.fasta
 
 # this is our input (raw VCF)

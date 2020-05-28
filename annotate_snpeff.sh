@@ -12,7 +12,7 @@ module load GATK/3.8-1-0-Java-1.8.0_152
 module load snpEff/4.3t-Java-1.8.0_152
 
 # set some shortcuts...
-export BUNDLE_HOME=/home/mirror/gatkbundle
+export BUNDLE_HOME=/home/classroom/hpcbio
 export REFERENCE=$BUNDLE_HOME/mayo_workshop/2019/human_g1k_v37.fasta
 
 export SNPEFF_CONFIG=$BUNDLE_HOME/mayo_workshop/2019/snpEff.config
